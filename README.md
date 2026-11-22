@@ -64,3 +64,11 @@ District 01 contains a four-way intersection, avenue, sidewalks, road markings, 
 - [Einrichtung der Straßendetails](Documentation/NEUSTADT-STREET-DETAILS.md)
 
 Ergänzt District 01 um statische Ampel-, Verkehrszeichen-, Straßennamen- und Bushaltestellen-Blockouts. Noch nicht in Unity kompiliert oder getestet.
+
+
+## Neustadt – Gebäudefassaden
+
+- [NeustadtBuildingDetails.cs](Assets/Scripts/World/NeustadtBuildingDetails.cs)
+- [Einrichtung der Fassadendetails](Documentation/NEUSTADT-BUILDING-DETAILS.md)
+
+Ergänzt Wohnhäuser, Café, Autohaus, Werkstatt und City Office um einfache Fassaden- und Dachdetails. Noch nicht in Unity kompiliert oder getestet.
