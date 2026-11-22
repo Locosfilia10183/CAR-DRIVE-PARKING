@@ -22,6 +22,11 @@ Der spätere Ausführungszeitpunkt sorgt dafür, dass der Map Builder zuerst sei
 
 Das Auto startet auf dem Parkplatz im Südosten des Bezirks.
 
+
+## Fahrtest-Verbesserungen
+- Asphalt der Hauptallee, Ringstraße und des Parkplatzes besitzt jetzt Kollisionsflächen, damit die Räder auf der Straßenoberfläche statt auf dem tiefer liegenden Terrain rollen.
+- Die eingestellte Höchstgeschwindigkeit wird nun vorwärts und rückwärts begrenzt.
+
 ## Bekannte Grenzen
 - Das ist ein einfacher Fahr-Prototyp mit WheelCollidern, kein realistisches Fahrzeugmodell.
 - KI-Verkehr, Fußgänger, Missionen, Speichern, Garage und Multiplayer sind noch nicht enthalten.
