@@ -42,6 +42,25 @@ namespace CarDriveParking
             if (!HasAllWheels()) Debug.LogError("Assign all four WheelColliders in the Inspector.", this);
         }
 
+
+        public void Configure(
+            VehicleInput vehicleInput,
+            WheelCollider fl, WheelCollider fr,
+            WheelCollider rl, WheelCollider rr,
+            Transform flMesh, Transform frMesh,
+            Transform rlMesh, Transform rrMesh)
+        {
+            input = vehicleInput;
+            frontLeft = fl;
+            frontRight = fr;
+            rearLeft = rl;
+            rearRight = rr;
+            frontLeftMesh = flMesh;
+            frontRightMesh = frMesh;
+            rearLeftMesh = rlMesh;
+            rearRightMesh = rrMesh;
+        }
+
         private void FixedUpdate()
         {
             if (input == null || !HasAllWheels()) return;
