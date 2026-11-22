@@ -144,7 +144,7 @@ namespace CarDriveParking
             image.color = new Color(0.10f, 0.32f, 0.52f, 1f);
             Button button = obj.GetComponent<Button>();
             button.targetGraphic = image;
-            button.onClick.AddListener(action);
+            if (action != null) button.onClick.AddListener(action);
             CreateText(obj.transform, label, 22, Vector2.zero, Vector2.one, Vector2.zero, FontStyle.Bold);
             return button;
         }
