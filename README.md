@@ -49,3 +49,10 @@ The first runtime-generated main menu is committed. It is a prototype scaffold a
 
 
 The main menu now includes a runtime-rendered 3D VELTOR V6 S preview with a rotating vehicle blockout. Supporting script: [MenuVehicleRotation.cs](Assets/Scripts/Core/MenuVehicleRotation.cs). This remains uncompiled and untested in Unity until the project is opened on a development PC.
+
+
+## Neustadt – first map blockout
+- [Procedural district builder](Assets/Scripts/World/NeustadtMapBuilder.cs)
+- [District 01 setup and layout](Documentation/NEUSTADT-DISTRICT-01.md)
+
+District 01 contains a four-way intersection, avenue, sidewalks, road markings, parking bays, placeholder buildings, a small park, streetlights and trees. It is a runtime greybox and has not yet been compiled or tested in Unity.
