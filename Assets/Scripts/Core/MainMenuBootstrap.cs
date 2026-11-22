@@ -16,6 +16,7 @@ namespace CarDriveParking
         private Text messageText;
 
         private Font uiFont;
+        private RenderTexture vehiclePreviewTexture;
 
         private void Start()
         {
@@ -42,6 +43,7 @@ namespace CarDriveParking
             mainPanel = CreatePanel("Main Menu", canvas.transform, new Color(0.018f, 0.028f, 0.045f, 1f));
             CreateBlock(mainPanel.transform, "Right blue stage", new Vector2(0.52f, 0f), new Vector2(1f, 1f), new Color(0.025f, 0.075f, 0.12f, 1f));
             CreateBlock(mainPanel.transform, "Stage glow", new Vector2(0.72f, 0.12f), new Vector2(1f, 0.88f), new Color(0.035f, 0.12f, 0.19f, 0.55f));
+            BuildVehicleShowcase(mainPanel.transform);
             CreateBlock(mainPanel.transform, "Accent line", new Vector2(0.055f, 0.17f), new Vector2(0.058f, 0.83f), new Color(0.08f, 0.62f, 0.95f, 1f));
 
             CreateTextAligned(mainPanel.transform, "CDP  /  MAIN MENU", 17, new Vector2(0.085f, 0.88f), new Vector2(0.42f, 0.93f), FontStyle.Bold, TextAnchor.MiddleLeft, new Color(0.28f, 0.72f, 0.98f));
@@ -58,20 +60,127 @@ namespace CarDriveParking
             CreateTextAligned(mainPanel.transform, "VELTOR  /  V6 S", 20, new Vector2(0.60f, 0.19f), new Vector2(0.92f, 0.25f), FontStyle.Bold, TextAnchor.MiddleRight, new Color(0.48f, 0.78f, 0.96f));
             CreateTextAligned(mainPanel.transform, "FIRST LOOK", 14, new Vector2(0.60f, 0.145f), new Vector2(0.92f, 0.19f), FontStyle.Normal, TextAnchor.MiddleRight, new Color(0.55f, 0.65f, 0.73f));
 
-            // Temporary abstract vehicle artwork; a real 3D showroom car comes later.
-            CreateBlock(mainPanel.transform, "Vehicle shadow", new Vector2(0.61f, 0.34f), new Vector2(0.94f, 0.39f), new Color(0.008f, 0.018f, 0.028f, 0.8f));
-            CreateBlock(mainPanel.transform, "Vehicle body silhouette", new Vector2(0.64f, 0.39f), new Vector2(0.91f, 0.51f), new Color(0.055f, 0.22f, 0.34f, 1f));
-            CreateBlock(mainPanel.transform, "Vehicle cabin silhouette", new Vector2(0.70f, 0.50f), new Vector2(0.85f, 0.61f), new Color(0.035f, 0.12f, 0.19f, 1f));
-            CreateBlock(mainPanel.transform, "Vehicle front highlight", new Vector2(0.87f, 0.43f), new Vector2(0.915f, 0.46f), new Color(0.18f, 0.72f, 0.98f, 1f));
-            CreateBlock(mainPanel.transform, "Vehicle rear highlight", new Vector2(0.635f, 0.43f), new Vector2(0.66f, 0.46f), new Color(0.95f, 0.22f, 0.18f, 1f));
-            CreateBlock(mainPanel.transform, "Front wheel", new Vector2(0.82f, 0.35f), new Vector2(0.87f, 0.42f), new Color(0.012f, 0.018f, 0.025f, 1f));
-            CreateBlock(mainPanel.transform, "Rear wheel", new Vector2(0.67f, 0.35f), new Vector2(0.72f, 0.42f), new Color(0.012f, 0.018f, 0.025f, 1f));
-
             messageText = CreateTextAligned(mainPanel.transform, "", 16, new Vector2(0.085f, 0.13f), new Vector2(0.48f, 0.18f), FontStyle.Normal, TextAnchor.MiddleLeft, new Color(0.95f, 0.76f, 0.35f));
             settingsPanel = CreatePanel("Settings", canvas.transform, new Color(0.018f, 0.028f, 0.045f, 1f));
             CreateBlock(settingsPanel.transform, "Settings accent", new Vector2(0.055f, 0.12f), new Vector2(0.06f, 0.88f), new Color(0.08f, 0.62f, 0.95f, 1f));
             BuildSettings();
             settingsPanel.SetActive(false);
+        }
+
+        private void BuildVehicleShowcase(Transform parent)
+        {
+            vehiclePreviewTexture = new RenderTexture(1024, 768, 16, RenderTextureFormat.ARGB32);
+            vehiclePreviewTexture.name = "CDP Vehicle Preview";
+
+            GameObject cameraObject = new GameObject("Menu Vehicle Camera");
+            Camera previewCamera = cameraObject.AddComponent<Camera>();
+            previewCamera.targetTexture = vehiclePreviewTexture;
+            previewCamera.clearFlags = CameraClearFlags.SolidColor;
+            previewCamera.backgroundColor = new Color(0.025f, 0.075f, 0.12f, 1f);
+            previewCamera.fieldOfView = 34f;
+            previewCamera.nearClipPlane = 0.1f;
+            previewCamera.farClipPlane = 100f;
+            previewCamera.cullingMask = 1 << 8;
+            cameraObject.transform.position = new Vector3(5.2f, 2.8f, -6.5f);
+            cameraObject.transform.LookAt(new Vector3(0f, 0.9f, 0f));
+
+            GameObject lightObject = new GameObject("Menu Vehicle Key Light");
+            Light keyLight = lightObject.AddComponent<Light>();
+            keyLight.type = LightType.Directional;
+            keyLight.intensity = 1.35f;
+            lightObject.transform.rotation = Quaternion.Euler(35f, -30f, 0f);
+            lightObject.layer = 8;
+
+            GameObject fillObject = new GameObject("Menu Vehicle Fill Light");
+            Light fillLight = fillObject.AddComponent<Light>();
+            fillLight.type = LightType.Directional;
+            fillLight.intensity = 0.65f;
+            fillLight.color = new Color(0.35f, 0.65f, 1f);
+            fillObject.transform.rotation = Quaternion.Euler(20f, 145f, 0f);
+            fillObject.layer = 8;
+
+            GameObject car = new GameObject("VELTOR V6 S - Menu Preview");
+            car.layer = 8;
+            car.transform.position = Vector3.zero;
+            CreateShowcasePart(car.transform, PrimitiveType.Cube, "Body shell", new Vector3(0f, 0.82f, 0f), new Vector3(1.85f, 0.62f, 4.25f), new Color(0.035f, 0.22f, 0.48f));
+            CreateShowcasePart(car.transform, PrimitiveType.Cube, "Cabin base", new Vector3(0f, 1.38f, -0.15f), new Vector3(1.48f, 0.62f, 1.95f), new Color(0.025f, 0.07f, 0.11f));
+
+            for (int side = -1; side <= 1; side += 2)
+            {
+                for (int axle = -1; axle <= 1; axle += 2)
+                {
+                    GameObject wheel = CreateShowcasePart(car.transform, PrimitiveType.Cylinder,
+                        "Preview Wheel", new Vector3(side * 0.94f, 0.42f, axle * 1.35f),
+                        new Vector3(0.72f, 0.16f, 0.72f), new Color(0.012f, 0.015f, 0.02f));
+                    wheel.transform.localRotation = Quaternion.Euler(0f, 0f, 90f);
+                }
+            }
+
+            VehicleVisualBuilder.Build(car.transform);
+            SetLayerRecursively(car, 8);
+            car.AddComponent<MenuVehicleRotation>();
+
+            GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
+            floor.name = "Menu Vehicle Floor";
+            floor.layer = 8;
+            floor.transform.position = new Vector3(0f, 0.02f, 0f);
+            floor.transform.localScale = new Vector3(0.7f, 1f, 0.7f);
+            floor.GetComponent<Renderer>().material = CreateShowcaseMaterial(new Color(0.035f, 0.085f, 0.12f));
+            SetLayerRecursively(floor, 8);
+
+            GameObject preview = new GameObject("Vehicle Preview Window", typeof(RectTransform), typeof(RawImage));
+            preview.transform.SetParent(parent, false);
+            RectTransform rect = preview.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0.52f, 0.27f);
+            rect.anchorMax = new Vector2(1f, 0.83f);
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            RawImage rawImage = preview.GetComponent<RawImage>();
+            rawImage.texture = vehiclePreviewTexture;
+            rawImage.color = Color.white;
+            rawImage.raycastTarget = false;
+        }
+
+        private GameObject CreateShowcasePart(Transform parent, PrimitiveType type, string partName, Vector3 position, Vector3 scale, Color color)
+        {
+            GameObject part = GameObject.CreatePrimitive(type);
+            part.name = partName;
+            part.transform.SetParent(parent, false);
+            part.transform.localPosition = position;
+            part.transform.localScale = scale;
+            part.layer = 8;
+            Renderer renderer = part.GetComponent<Renderer>();
+            renderer.material = CreateShowcaseMaterial(color);
+            Collider collider = part.GetComponent<Collider>();
+            if (collider != null) Destroy(collider);
+            return part;
+        }
+
+        private Material CreateShowcaseMaterial(Color color)
+        {
+            Shader shader = Shader.Find("Universal Render Pipeline/Lit");
+            if (shader == null) shader = Shader.Find("Standard");
+            Material material = new Material(shader);
+            material.color = color;
+            material.SetFloat("_Metallic", 0.35f);
+            material.SetFloat("_Smoothness", 0.55f);
+            return material;
+        }
+
+        private void SetLayerRecursively(GameObject target, int layer)
+        {
+            target.layer = layer;
+            foreach (Transform child in target.transform)
+                SetLayerRecursively(child.gameObject, layer);
+        }
+
+        private void OnDestroy()
+        {
+            if (vehiclePreviewTexture != null)
+            {
+                vehiclePreviewTexture.Release();
+                Destroy(vehiclePreviewTexture);
+            }
         }
 
         private void ShowPlayMessage()
