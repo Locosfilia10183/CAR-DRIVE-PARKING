@@ -35,4 +35,7 @@ Whenever new scripts are committed, open the project in Unity on the PC and pres
 
 
 ## Visual update
-The main menu now uses a split-screen layout: navigation on the left and a temporary VELTOR V6 S silhouette stage on the right. The vehicle graphic is deliberately made from simple UI shapes and is only a placeholder. Later it will be replaced with a real 3D vehicle preview and animated camera. The Play button remains a placeholder until the Neustadt game scene exists.
+The main menu now uses a split-screen layout: navigation on the left and a temporary VELTOR V6 S silhouette stage on the right. The right side now renders a live 3D VELTOR V6 S blockout through a RenderTexture. The car rotates slowly, and its geometry reuses the existing procedural vehicle visual builder. It is still a temporary primitive model, not a finished production vehicle. The Play button remains a placeholder until the Neustadt game scene exists.
+
+
+Additional script: [MenuVehicleRotation.cs](../Assets/Scripts/Core/MenuVehicleRotation.cs) rotates the 3D preview vehicle. The menu scene creates its preview camera, lights, render texture, vehicle blockout and floor at runtime.
