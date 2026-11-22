@@ -9,6 +9,12 @@ namespace CarDriveParking
         [SerializeField] private KeyCode switchKey = KeyCode.C;
         private bool showingInterior;
 
+        public void Configure(Camera exterior, Camera interior)
+        {
+            exteriorCamera = exterior;
+            interiorCamera = interior;
+        }
+
         private void Start() { SetInterior(false); }
 
         private void Update()
