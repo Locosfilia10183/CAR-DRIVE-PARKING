@@ -59,40 +59,41 @@ namespace CarDriveParking
             CreateText(settingsPanel.transform, "EINSTELLUNGEN", 42, new Vector2(0.5f, 0.88f), new Vector2(0.5f, 0.88f), new Vector2(700, 70), FontStyle.Bold);
 
             CreateSettingLabel("Grafikqualität", 0.72f);
-            Dropdown quality = CreateDropdown(settingsPanel.transform, new Vector2(0.5f, 0.72f), new[] { "Niedrig", "Mittel", "Hoch", "Ultra" });
-            quality.value = Mathf.Clamp(PlayerPrefs.GetInt("CDP_Quality", 2), 0, 3);
-            quality.onValueChanged.AddListener(value => { QualitySettings.SetQualityLevel(value); PlayerPrefs.SetInt("CDP_Quality", value); });
+            CreateChoice(settingsPanel.transform, new Vector2(0.5f, 0.72f), new[] { "Niedrig", "Mittel", "Hoch", "Ultra" }, PlayerPrefs.GetInt("CDP_Quality", 2), value =>
+            {
+                QualitySettings.SetQualityLevel(value);
+                PlayerPrefs.SetInt("CDP_Quality", value);
+            });
 
             CreateSettingLabel("Auflösung", 0.61f);
-            Dropdown resolution = CreateDropdown(settingsPanel.transform, new Vector2(0.5f, 0.61f), new[] { "1280 x 720", "1600 x 900", "1920 x 1080" });
-            resolution.onValueChanged.AddListener(value =>
+            CreateChoice(settingsPanel.transform, new Vector2(0.5f, 0.61f), new[] { "1280 x 720", "1600 x 900", "1920 x 1080" }, PlayerPrefs.GetInt("CDP_Resolution", 2), value =>
             {
                 int[,] sizes = { { 1280, 720 }, { 1600, 900 }, { 1920, 1080 } };
                 Screen.SetResolution(sizes[value, 0], sizes[value, 1], Screen.fullScreen);
                 PlayerPrefs.SetInt("CDP_Resolution", value);
             });
-            resolution.value = Mathf.Clamp(PlayerPrefs.GetInt("CDP_Resolution", 2), 0, 2);
 
             CreateSettingLabel("Sprache", 0.50f);
-            Dropdown language = CreateDropdown(settingsPanel.transform, new Vector2(0.5f, 0.50f), new[] { "Deutsch", "English" });
-            language.value = Mathf.Clamp(PlayerPrefs.GetInt("CDP_Language", 0), 0, 1);
-            language.onValueChanged.AddListener(value => PlayerPrefs.SetInt("CDP_Language", value));
+            CreateChoice(settingsPanel.transform, new Vector2(0.5f, 0.50f), new[] { "Deutsch", "English" }, PlayerPrefs.GetInt("CDP_Language", 0), value => PlayerPrefs.SetInt("CDP_Language", value));
 
             CreateSettingLabel("Steuerung", 0.39f);
-            Dropdown controls = CreateDropdown(settingsPanel.transform, new Vector2(0.5f, 0.39f), new[] { "Automatisch", "Tasten / Controller", "Touch-Steuerung" });
-            controls.value = Mathf.Clamp(PlayerPrefs.GetInt("CDP_Controls", 0), 0, 2);
-            controls.onValueChanged.AddListener(value => PlayerPrefs.SetInt("CDP_Controls", value));
+            CreateChoice(settingsPanel.transform, new Vector2(0.5f, 0.39f), new[] { "Automatisch", "Tasten / Controller", "Touch-Steuerung" }, PlayerPrefs.GetInt("CDP_Controls", 0), value => PlayerPrefs.SetInt("CDP_Controls", value));
 
             CreateSettingLabel("Lautstärke", 0.28f);
-            Slider volume = CreateSlider(settingsPanel.transform, new Vector2(0.5f, 0.28f));
-            volume.value = PlayerPrefs.GetFloat("CDP_Volume", 0.8f);
-            AudioListener.volume = volume.value;
-            volume.onValueChanged.AddListener(value => { AudioListener.volume = value; PlayerPrefs.SetFloat("CDP_Volume", value); });
+            int volumePercent = Mathf.RoundToInt(PlayerPrefs.GetFloat("CDP_Volume", 0.8f) * 100f);
+            CreateChoice(settingsPanel.transform, new Vector2(0.5f, 0.28f), new[] { "0%", "20%", "40%", "60%", "80%", "100%" }, Mathf.Clamp(Mathf.RoundToInt(volumePercent / 20f), 0, 5), value =>
+            {
+                float volume = value * 0.2f;
+                AudioListener.volume = volume;
+                PlayerPrefs.SetFloat("CDP_Volume", volume);
+            });
 
-            Toggle fullscreen = CreateToggle(settingsPanel.transform, "Vollbild", new Vector2(0.5f, 0.19f));
-            fullscreen.isOn = PlayerPrefs.GetInt("CDP_Fullscreen", 1) == 1;
-            Screen.fullScreen = fullscreen.isOn;
-            fullscreen.onValueChanged.AddListener(value => { Screen.fullScreen = value; PlayerPrefs.SetInt("CDP_Fullscreen", value ? 1 : 0); });
+            CreateSettingLabel("Vollbild", 0.19f);
+            CreateChoice(settingsPanel.transform, new Vector2(0.5f, 0.19f), new[] { "Aus", "Ein" }, PlayerPrefs.GetInt("CDP_Fullscreen", 1), value =>
+            {
+                Screen.fullScreen = value == 1;
+                PlayerPrefs.SetInt("CDP_Fullscreen", value);
+            });
 
             CreateButton(settingsPanel.transform, "ZURÜCK", new Vector2(0.5f, 0.08f), ShowMainMenu);
         }
@@ -153,51 +154,20 @@ namespace CarDriveParking
             CreateText(settingsPanel.transform, label, 19, new Vector2(0.18f, y - 0.025f), new Vector2(0.42f, y + 0.025f), new Vector2(0, 0), FontStyle.Normal);
         }
 
-        private Dropdown CreateDropdown(Transform parent, Vector2 anchor, string[] options)
+        private void CreateChoice(Transform parent, Vector2 anchor, string[] options, int initialValue, System.Action<int> onChanged)
         {
-            GameObject obj = new GameObject("Dropdown", typeof(RectTransform), typeof(Image), typeof(Dropdown));
-            obj.transform.SetParent(parent, false);
-            RectTransform rect = obj.GetComponent<RectTransform>();
-            rect.anchorMin = anchor;
-            rect.anchorMax = anchor;
-            rect.sizeDelta = new Vector2(340, 48);
-            rect.anchoredPosition = new Vector2(220, 0);
-            obj.GetComponent<Image>().color = new Color(0.14f, 0.18f, 0.23f, 1f);
-            Dropdown dropdown = obj.GetComponent<Dropdown>();
-            dropdown.captionText = CreateText(obj.transform, options[0], 18, new Vector2(0.05f, 0f), new Vector2(0.95f, 1f), Vector2.zero, FontStyle.Normal);
-            dropdown.options.Clear();
-            foreach (string option in options) dropdown.options.Add(new Dropdown.OptionData(option));
-            return dropdown;
-        }
-
-        private Slider CreateSlider(Transform parent, Vector2 anchor)
-        {
-            GameObject obj = new GameObject("Volume Slider", typeof(RectTransform), typeof(Slider));
-            obj.transform.SetParent(parent, false);
-            RectTransform rect = obj.GetComponent<RectTransform>();
-            rect.anchorMin = anchor;
-            rect.anchorMax = anchor;
-            rect.sizeDelta = new Vector2(340, 30);
-            rect.anchoredPosition = new Vector2(220, 0);
-            Slider slider = obj.GetComponent<Slider>();
-            slider.minValue = 0f;
-            slider.maxValue = 1f;
-            return slider;
-        }
-
-        private Toggle CreateToggle(Transform parent, string label, Vector2 anchor)
-        {
-            GameObject obj = new GameObject("Toggle - " + label, typeof(RectTransform), typeof(Toggle), typeof(Image));
-            obj.transform.SetParent(parent, false);
-            RectTransform rect = obj.GetComponent<RectTransform>();
-            rect.anchorMin = anchor;
-            rect.anchorMax = anchor;
-            rect.sizeDelta = new Vector2(340, 40);
-            rect.anchoredPosition = new Vector2(220, 0);
-            Toggle toggle = obj.GetComponent<Toggle>();
-            toggle.targetGraphic = obj.GetComponent<Image>();
-            CreateText(obj.transform, label, 18, Vector2.zero, Vector2.one, Vector2.zero, FontStyle.Normal);
-            return toggle;
+            int selected = Mathf.Clamp(initialValue, 0, options.Length - 1);
+            Button button = CreateButton(parent, options[selected] + "  >", anchor, null);
+            button.GetComponent<RectTransform>().sizeDelta = new Vector2(340, 48);
+            button.GetComponent<RectTransform>().anchoredPosition = new Vector2(220, 0);
+            Text label = button.GetComponentInChildren<Text>();
+            button.onClick.AddListener(() =>
+            {
+                selected = (selected + 1) % options.Length;
+                label.text = options[selected] + "  >";
+                onChanged?.Invoke(selected);
+            });
+            onChanged?.Invoke(selected);
         }
 
         private void ShowSettings()
