@@ -61,7 +61,7 @@ namespace CarDriveParking
             CreatePrimitivePart(car.transform, PrimitiveType.Cube, "Body shell", new Vector3(0f, 0.86f, 0f), new Vector3(1.85f, 0.62f, 4.25f), paint);
             CreatePrimitivePart(car.transform, PrimitiveType.Cube, "Cabin", new Vector3(0f, 1.38f, -0.15f), new Vector3(1.48f, 0.62f, 1.95f), glass);
             CreatePrimitivePart(car.transform, PrimitiveType.Cube, "Front bumper", new Vector3(0f, 0.62f, 2.08f), new Vector3(1.82f, 0.22f, 0.18f), paint);
-            CreatePrimitivePart(car.transform, PrimitiveType.Cube, "Rear bumper", new Vector3(0f, 0.62f, -2.08f), new Vector3(1.82f, 0.22f, 0.18f), paint);
+            CreatePrimitivePart(car.transform, PrimitiveType.Cube, "Rear bumper", new Vector3(0f, 0.62f, -2.08f), new Vector3(1.82f, 0.22f, 0.18f), paint);\n            VehicleVisualBuilder.Build(car.transform);
 
             WheelCollider fl, fr, rl, rr;
             Transform flVisual, frVisual, rlVisual, rrVisual;
