@@ -39,7 +39,6 @@ namespace CarDriveParking
             body.centerOfMass += centerOfMassOffset;
             if (input == null) input = GetComponent<VehicleInput>();
             if (input == null) Debug.LogError("Add VehicleInput to this vehicle.", this);
-            if (!HasAllWheels()) Debug.LogError("Assign all four WheelColliders in the Inspector.", this);
         }
 
 
