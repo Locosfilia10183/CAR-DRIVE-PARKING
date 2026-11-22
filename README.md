@@ -46,3 +46,6 @@ This repository currently contains planning and project foundation files. It is 
 - [Main menu setup guide](Documentation/MAIN-MENU-SETUP.md)
 
 The first runtime-generated main menu is committed. It is a prototype scaffold and has not yet been compiled or tested in Unity. The Play button will be connected to the Neustadt game scene when the map is built.
+
+
+The main menu now includes a runtime-rendered 3D VELTOR V6 S preview with a rotating vehicle blockout. Supporting script: [MenuVehicleRotation.cs](Assets/Scripts/Core/MenuVehicleRotation.cs). This remains uncompiled and untested in Unity until the project is opened on a development PC.
