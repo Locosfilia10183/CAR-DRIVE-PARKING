@@ -31,3 +31,5 @@ The first city area is a procedural greybox generated at runtime. It gives us a 
 ## Important
 
 This is a greybox, not a finished city. Building windows, lamps, trees and road markings are simple primitives. The district has not been compiled or tested in Unity yet. We will test scale, collisions, road width and camera framing on the PC before adding more city blocks. The current menu's Play button will be connected to this scene after the first map pass is reviewed.
+
+The builder also creates an overview camera and basic directional lighting, so the district is visible when testing the scene even if it starts without a camera. The overview camera is only for map inspection; later we will replace it with the driving camera.
