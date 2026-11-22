@@ -39,3 +39,10 @@ No online multiplayer is planned for this first prototype.
 
 ## Important
 This repository currently contains planning and project foundation files. It is not yet a runnable Unity project. Unity Editor setup and the first playable scene will be created when a Windows or Mac development computer is available.
+
+
+## Main menu prototype
+- [Main menu and settings script](Assets/Scripts/Core/MainMenuBootstrap.cs)
+- [Main menu setup guide](Documentation/MAIN-MENU-SETUP.md)
+
+The first runtime-generated main menu is committed. It is a prototype scaffold and has not yet been compiled or tested in Unity. The Play button will be connected to the Neustadt game scene when the map is built.
