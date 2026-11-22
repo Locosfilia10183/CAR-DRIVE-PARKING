@@ -32,3 +32,7 @@ Settings are saved locally using PlayerPrefs.
 ## PC testing
 
 Whenever new scripts are committed, open the project in Unity on the PC and press Play to test the current prototype. This file is a setup guide; the repository is not a complete Unity project until the Unity project files and assets are added.
+
+
+## Visual update
+The main menu now uses a split-screen layout: navigation on the left and a temporary VELTOR V6 S silhouette stage on the right. The vehicle graphic is deliberately made from simple UI shapes and is only a placeholder. Later it will be replaced with a real 3D vehicle preview and animated camera. The Play button remains a placeholder until the Neustadt game scene exists.
