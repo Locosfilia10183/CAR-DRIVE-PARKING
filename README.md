@@ -56,3 +56,11 @@ The main menu now includes a runtime-rendered 3D VELTOR V6 S preview with a rota
 - [District 01 setup and layout](Documentation/NEUSTADT-DISTRICT-01.md)
 
 District 01 contains a four-way intersection, avenue, sidewalks, road markings, parking bays, placeholder buildings, a small park, streetlights and trees. It is a runtime greybox and has not yet been compiled or tested in Unity.
+
+
+## Neustadt – Straßendetails
+
+- [NeustadtStreetDetails.cs](Assets/Scripts/World/NeustadtStreetDetails.cs)
+- [Einrichtung der Straßendetails](Documentation/NEUSTADT-STREET-DETAILS.md)
+
+Ergänzt District 01 um statische Ampel-, Verkehrszeichen-, Straßennamen- und Bushaltestellen-Blockouts. Noch nicht in Unity kompiliert oder getestet.
