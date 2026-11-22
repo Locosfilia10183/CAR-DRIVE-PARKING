@@ -61,7 +61,8 @@ namespace CarDriveParking
             CreatePrimitivePart(car.transform, PrimitiveType.Cube, "Body shell", new Vector3(0f, 0.86f, 0f), new Vector3(1.85f, 0.62f, 4.25f), paint);
             CreatePrimitivePart(car.transform, PrimitiveType.Cube, "Cabin", new Vector3(0f, 1.38f, -0.15f), new Vector3(1.48f, 0.62f, 1.95f), glass);
             CreatePrimitivePart(car.transform, PrimitiveType.Cube, "Front bumper", new Vector3(0f, 0.62f, 2.08f), new Vector3(1.82f, 0.22f, 0.18f), paint);
-            CreatePrimitivePart(car.transform, PrimitiveType.Cube, "Rear bumper", new Vector3(0f, 0.62f, -2.08f), new Vector3(1.82f, 0.22f, 0.18f), paint);\n            VehicleVisualBuilder.Build(car.transform);
+            CreatePrimitivePart(car.transform, PrimitiveType.Cube, "Rear bumper", new Vector3(0f, 0.62f, -2.08f), new Vector3(1.82f, 0.22f, 0.18f), paint);
+            VehicleVisualBuilder.Build(car.transform);
 
             WheelCollider fl, fr, rl, rr;
             Transform flVisual, frVisual, rlVisual, rrVisual;
@@ -70,7 +71,7 @@ namespace CarDriveParking
             CreateWheel(car.transform, "Rear Left", new Vector3(-0.91f, 0.42f, -1.35f), tire, rim, out rl, out rlVisual);
             CreateWheel(car.transform, "Rear Right", new Vector3(0.91f, 0.42f, -1.35f), tire, rim, out rr, out rrVisual);
 
-            VehicleInput input = car.AddComponent<VehicleInput>();\n            VehicleVisualBuilder.Build(car.transform);
+            VehicleInput input = car.AddComponent<VehicleInput>();
             VehicleController controller = car.AddComponent<VehicleController>();
             controller.Configure(input, fl, fr, rl, rr, flVisual, frVisual, rlVisual, rrVisual);
 
