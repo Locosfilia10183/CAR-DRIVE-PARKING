@@ -72,3 +72,11 @@ Ergänzt District 01 um statische Ampel-, Verkehrszeichen-, Straßennamen- und B
 - [Einrichtung der Fassadendetails](Documentation/NEUSTADT-BUILDING-DETAILS.md)
 
 Ergänzt Wohnhäuser, Café, Autohaus, Werkstatt und City Office um einfache Fassaden- und Dachdetails. Noch nicht in Unity kompiliert oder getestet.
+
+
+## Erste spielbare Neustadt-Version
+
+- [NeustadtPlayableBootstrap.cs](Assets/Scripts/Core/NeustadtPlayableBootstrap.cs)
+- [Anleitung: Neustadt fahren](Documentation/PLAYABLE-NEUSTADT-0.1.md)
+
+Erzeugt ein Spielerauto, WheelCollider-Fahrphysik, Außen-/Innenkamera und Touch-Steuerung für einen ersten Offline-Fahrtest. Noch nicht in Unity kompiliert oder getestet.
