@@ -29,6 +29,7 @@ No online multiplayer is planned for this first prototype.
 - [Technical Architecture](Documentation/ARCHITECTURE.md)
 - [Asset and IP Policy](Documentation/ASSET-POLICY.md)
 - [Unity project structure](Documentation/PROJECT-STRUCTURE.md)
+- [Prototype 0.1 setup guide](Documentation/PROTOTYPE-0.1-SETUP.md)
 
 ## Development status
 **Phase:** Planning and foundation  
