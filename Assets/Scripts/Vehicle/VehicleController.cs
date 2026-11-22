@@ -85,6 +85,13 @@ namespace CarDriveParking
                 requestedDrive = 0f;
             }
 
+            // Enforce the configured speed limit in both forward and reverse.
+            float speedLimitMps = maxSpeedKph / 3.6f;
+            if (requestedDrive > 0f && forwardSpeed >= speedLimitMps)
+                requestedDrive = 0f;
+            else if (requestedDrive < 0f && forwardSpeed <= -speedLimitMps)
+                requestedDrive = 0f;
+
             ApplyDriveTorque(requestedDrive * motorTorque);
             float normalBrake = serviceBrake * brakeTorque;
             frontLeft.brakeTorque = normalBrake;
