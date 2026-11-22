@@ -109,8 +109,8 @@ namespace CarDriveParking
             CreateBox("Terrain", new Vector3(0f, -0.18f, 0f), new Vector3(260f, 0.3f, 260f), groundMaterial, true);
 
             // Main north-south avenue and the east-west cross street.
-            CreateBox("Hauptallee - Asphalt", new Vector3(0f, 0.005f, 0f), new Vector3(13f, 0.08f, 210f), roadMaterial, false);
-            CreateBox("Ringstrasse - Asphalt", new Vector3(0f, 0.006f, 0f), new Vector3(210f, 0.08f, 13f), roadMaterial, false);
+            CreateBox("Hauptallee - Asphalt", new Vector3(0f, 0.005f, 0f), new Vector3(13f, 0.08f, 210f), roadMaterial, true);
+            CreateBox("Ringstrasse - Asphalt", new Vector3(0f, 0.006f, 0f), new Vector3(210f, 0.08f, 13f), roadMaterial, true);
 
             // Continuous sidewalks along the main avenue.
             for (int side = -1; side <= 1; side += 2)
@@ -155,7 +155,7 @@ namespace CarDriveParking
         private void CreateParkingLot()
         {
             // Public parking area in the south-east city block.
-            CreateBox("Public parking asphalt", new Vector3(29f, 0.012f, -27f), new Vector3(34f, 0.08f, 24f), roadMaterial, false);
+            CreateBox("Public parking asphalt", new Vector3(29f, 0.012f, -27f), new Vector3(34f, 0.08f, 24f), roadMaterial, true);
 
             for (int row = 0; row < 2; row++)
             {
