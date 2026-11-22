@@ -9,6 +9,12 @@ namespace CarDriveParking
         [SerializeField] private VehicleInput targetInput;
         [SerializeField] private VehicleInput.MobileControl control;
 
+        public void Configure(VehicleInput input, VehicleInput.MobileControl mobileControl)
+        {
+            targetInput = input;
+            control = mobileControl;
+        }
+
         public void OnPointerDown(PointerEventData eventData)
         {
             if (targetInput != null) targetInput.SetMobileControl(control, true);
