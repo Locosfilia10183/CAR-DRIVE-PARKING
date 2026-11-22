@@ -28,7 +28,7 @@ These values are starting points for testing, not validated real-world vehicle s
 - No real-world manufacturer logos or copied vehicle styling
 
 ## Future model checklist
-- [ ] Original exterior body mesh
+- [x] Temporary primitive exterior blockout\n- [x] Temporary windows, mirrors, grille and light housings\n- [x] Temporary cockpit dashboard, display, seats and steering wheel\n- [x] Steering wheel animation connected to input\n- [ ] Original exterior body mesh
 - [ ] Front and rear light assemblies
 - [ ] Mirrors, door handles and grille
 - [ ] Four detailed wheels and tires
