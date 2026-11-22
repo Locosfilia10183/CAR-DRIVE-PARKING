@@ -70,7 +70,7 @@ namespace CarDriveParking
             CreateWheel(car.transform, "Rear Left", new Vector3(-0.91f, 0.42f, -1.35f), tire, rim, out rl, out rlVisual);
             CreateWheel(car.transform, "Rear Right", new Vector3(0.91f, 0.42f, -1.35f), tire, rim, out rr, out rrVisual);
 
-            VehicleInput input = car.AddComponent<VehicleInput>();
+            VehicleInput input = car.AddComponent<VehicleInput>();\n            VehicleVisualBuilder.Build(car.transform);
             VehicleController controller = car.AddComponent<VehicleController>();
             controller.Configure(input, fl, fr, rl, rr, flVisual, frVisual, rlVisual, rrVisual);
 
