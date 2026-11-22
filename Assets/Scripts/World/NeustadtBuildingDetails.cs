@@ -162,6 +162,7 @@ namespace CarDriveParking
             GameObject obj = new GameObject(value + " Sign Text");
             obj.transform.SetParent(root, false);
             obj.transform.position = position;
+            obj.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
             TextMesh mesh = obj.AddComponent<TextMesh>();
             mesh.text = value;
             mesh.fontSize = 64;
