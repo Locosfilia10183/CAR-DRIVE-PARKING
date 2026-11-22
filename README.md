@@ -30,7 +30,7 @@ No online multiplayer is planned for this first prototype.
 - [Asset and IP Policy](Documentation/ASSET-POLICY.md)
 - [Unity project structure](Documentation/PROJECT-STRUCTURE.md)
 - [Prototype 0.1 setup guide](Documentation/PROTOTYPE-0.1-SETUP.md)
-- [VELTOR V6 S vehicle specification](Documentation/VELTOR-V6-S.md)
+- [VELTOR V6 S vehicle specification](Documentation/VELTOR-V6-S.md)\n\n## Prototype code\n- [Procedural scene builder](Assets/Scripts/Core/PrototypeSceneBuilder.cs)\n- [Vehicle visual blockout](Assets/Scripts/Vehicle/VehicleVisualBuilder.cs)\n- [Steering wheel animation](Assets/Scripts/Vehicle/SteeringWheelAnimator.cs)
 
 ## Development status
 **Phase:** Planning and foundation  
