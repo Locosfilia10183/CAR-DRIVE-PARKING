@@ -43,6 +43,7 @@ namespace CarDriveParking
             CreateParkingLot();
             CreateBuildings();
             CreateSmallPark();
+            CreatePreviewLightingAndCamera();
 
             if (createStreetFurniture)
             {
@@ -51,6 +52,35 @@ namespace CarDriveParking
             }
 
             Debug.Log("NEUSTADT blockout created: central avenue, cross street, sidewalks, parking, buildings and park.", this);
+        }
+
+        private void CreatePreviewLightingAndCamera()
+        {
+            // A simple overview camera makes the generated district visible in a brand-new empty scene.
+            Camera existingCamera = Camera.main;
+            if (existingCamera != null)
+                existingCamera.enabled = false;
+
+            GameObject cameraObject = new GameObject("Neustadt Overview Camera");
+            cameraObject.transform.SetParent(mapRoot, false);
+            cameraObject.transform.position = new Vector3(118f, 145f, -145f);
+            cameraObject.transform.LookAt(new Vector3(0f, 0f, 0f));
+            Camera overview = cameraObject.AddComponent<Camera>();
+            overview.tag = "MainCamera";
+            overview.fieldOfView = 55f;
+            overview.nearClipPlane = 0.3f;
+            overview.farClipPlane = 500f;
+            overview.backgroundColor = new Color(0.38f, 0.52f, 0.62f);
+            overview.clearFlags = CameraClearFlags.SolidColor;
+
+            GameObject sunObject = new GameObject("Neustadt Sun");
+            sunObject.transform.SetParent(mapRoot, false);
+            sunObject.transform.rotation = Quaternion.Euler(48f, -32f, 0f);
+            Light sun = sunObject.AddComponent<Light>();
+            sun.type = LightType.Directional;
+            sun.intensity = 1.15f;
+            sun.color = new Color(1f, 0.94f, 0.82f);
+            RenderSettings.ambientLight = new Color(0.48f, 0.52f, 0.58f);
         }
 
         private void CreateMaterials()
